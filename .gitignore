@@ -1,0 +1,25 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+uploads/
+logs/
+*.log
+.DS_Store
+Thumbs.db
+apps/web/.vite/
+
+# Локальные временные файлы
+tmp/
+backups/
+test-results/
+playwright-report/
+blob-report/
+
+# Тяжёлые бинарные ассеты вне git (на серверах/бэкапах)
+models/
+models.zip
+export.json
+Новая папка/

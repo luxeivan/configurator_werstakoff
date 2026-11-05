@@ -1,0 +1,38 @@
+{
+  "name": "iron-furniture-planner",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n server,web -c blue,green \"npm:dev:server\" \"npm:dev:web\"",
+    "dev:server": "npm run dev -w @planner/server",
+    "dev:web": "npm run dev -w @planner/web",
+    "build": "npm run build -w @planner/web",
+    "start": "npm run start -w @planner/server",
+    "db:generate": "npm run db:generate -w @planner/server",
+    "db:migrate": "npm run db:migrate -w @planner/server",
+    "seed": "npm run seed -w @planner/server",
+    "create-admin": "npm run create-admin -w @planner/server",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:load": "node scripts/load-test.js"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@eslint/js": "^9.17.0",
+    "@playwright/test": "^1.64.1",
+    "concurrently": "^9.1.0",
+    "eslint": "^9.17.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "vitest": "^5.0.5"
+  }
+}
