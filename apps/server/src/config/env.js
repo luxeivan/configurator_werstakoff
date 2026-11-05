@@ -30,8 +30,10 @@ export const env = {
   ),
   sessionSecret: process.env.SESSION_SECRET || 'dev-only-session-secret-change-me-32-bytes',
   uploadDir: process.env.UPLOAD_DIR || path.join(rootDir, 'uploads'),
-  maxModelMb: Number(process.env.MAX_MODEL_MB || 50),
+  maxModelMb: Number(process.env.MAX_MODEL_MB || 500),
   maxImageMb: Number(process.env.MAX_IMAGE_MB || 8),
+  // Файлы крупнее этого лимита автоматически оптимизируются сразу после загрузки.
+  modelAutoOptimizeMb: Number(process.env.MODEL_AUTO_OPTIMIZE_MB || 15),
   maxOrderItems: Number(process.env.MAX_ORDER_ITEMS || 100),
   webDist: process.env.WEB_DIST || path.join(rootDir, 'apps/web/dist'),
   smtp: {

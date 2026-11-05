@@ -34,6 +34,8 @@ import { storeUploadedFile } from '../../services/files.js';
 import { getOptimizeProgress, optimizeProductModel, rollbackOptimizedModel } from '../../services/modelOptimizer.js';
 import { writeAudit } from '../../services/audit.js';
 import { imageUpload, modelUpload } from '../../middleware/upload.js';
+import { env } from '../../config/env.js';
+import { logger } from '../../utils/logger.js';
 
 export const adminCatalogRouter = Router();
 
@@ -273,9 +275,16 @@ adminCatalogRouter.post(
       action: 'product.model.upload',
       entityType: 'product',
       entityId: product.publicId,
-      meta: { fileId: file.publicId, format: extension },
+      meta: { fileId: file.publicId, format: extension, sizeBytes: file.sizeBytes },
       req,
     });
+    // Автооптимизация: крупные файлы сразу приводим к лёгкой GLB-модели (в фоне),
+    // планировщик автоматически переключится на оптимизированную версию.
+    if (file.sizeBytes >= env.modelAutoOptimizeMb * 1024 * 1024 && (extension === 'glb' || extension === 'stl')) {
+      optimizeProductModel(id, {}, req.session.userId).catch((error) => {
+        logger.warn({ err: error, productId: id }, 'Автоматическая оптимизация модели не удалась');
+      });
+    }
     res.status(201).json({
       data: {
         fileId: file.id,

@@ -95,7 +95,16 @@ function multiply(a, b) {
 }
 
 function nodeMatrix(node) {
-  if (Array.isArray(node.matrix) && node.matrix.length === 16) return Float64Array.from(node.matrix);
+  if (Array.isArray(node.matrix) && node.matrix.length === 16) {
+    // матрица узла хранится по столбцам (column-major), а расчёт ниже — построчно
+    const m = node.matrix;
+    return Float64Array.from([
+      m[0], m[4], m[8], m[12],
+      m[1], m[5], m[9], m[13],
+      m[2], m[6], m[10], m[14],
+      m[3], m[7], m[11], m[15],
+    ]);
+  }
   const [tx, ty, tz] = node.translation || [0, 0, 0];
   const [x, y, z, w] = node.rotation || [0, 0, 0, 1];
   const [sx, sy, sz] = node.scale || [1, 1, 1];
@@ -292,14 +301,26 @@ async function run() {
   const targetIndexCount = Math.min(welded.indices.length, requested * 3);
   let indices = welded.indices;
   if (targetIndexCount < welded.indices.length) {
+    // ошибка упрощения пропорциональна размеру модели (не абсолютная),
+    // иначе для крупных моделей упрощение почти не работает,
+    // а для миниатюрных — наоборот, ломает силуэт.
+    const b = bounds(welded.positions);
+    const diag = Math.hypot(b.max[0]-b.min[0], b.max[1]-b.min[1], b.max[2]-b.min[2]) || 1;
+    const simplifyError = Math.max(1e-6, diag * 0.015);
     const [simplified] = MeshoptSimplifier.simplify(
       welded.indices,
       welded.positions,
       3,
       targetIndexCount,
-      0.02,
+      simplifyError,
     );
-    indices = simplified;
+    // убрать вырожденные треугольники после упрощения
+    const kept = [];
+    for (let i = 0; i < simplified.length; i += 3) {
+      const a = simplified[i], b2 = simplified[i + 1], c = simplified[i + 2];
+      if (a !== b2 && a !== c && b2 !== c) kept.push(a, b2, c);
+    }
+    indices = Uint32Array.from(kept);
   }
   report(75, 'Нормали и упаковка GLB');
   const normals = computeNormals(welded.positions, indices);
