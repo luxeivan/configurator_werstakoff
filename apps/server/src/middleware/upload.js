@@ -29,4 +29,5 @@ function makeUpload(maxMb, allowedExtensions, label) {
 
 export const imageUpload = makeUpload(env.maxImageMb, ['jpg', 'jpeg', 'png', 'webp'], 'изображения');
 export const modelUpload = makeUpload(env.maxModelMb, ['glb', 'gltf', 'stl'], '3D-модели');
+export const zipUpload = makeUpload(env.maxImportZipMb, ['zip'], 'архива');
 export const orderImageUpload = makeUpload(env.maxImageMb, ['jpg', 'jpeg', 'png', 'webp'], 'изображения заказа');

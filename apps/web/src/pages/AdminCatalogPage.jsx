@@ -7,6 +7,7 @@ import AdminShell from '../admin/AdminShell.jsx';
 import ProductEditor from '../admin/ProductEditor.jsx';
 import PropertyDictionary from '../admin/PropertyDictionary.jsx';
 import SectionTree from '../admin/SectionTree.jsx';
+import CatalogImportModal from '../admin/CatalogImportModal.jsx';
 
 function flatten(nodes, depth = 0) {
   return nodes.flatMap((node) => [
@@ -23,6 +24,7 @@ export default function AdminCatalogPage() {
   const [selectedSection, setSelectedSection] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [creating, setCreating] = useState(false);
+  const [importOpen, setImportOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -178,17 +180,27 @@ export default function AdminCatalogPage() {
               <p className="eyebrow">Товары</p>
               <h2>{selectedSection ? flatSections.find((item) => item.id === selectedSection)?.name : 'Все'}</h2>
             </div>
-            <button
-              className="button button-small"
-              type="button"
-              onClick={() => {
-                setSelectedProduct(null);
-                setCreating(true);
-                setError('');
-              }}
-            >
-              + Товар
-            </button>
+            <div className="panel-actions">
+              <button
+                className="button button-ghost button-small"
+                type="button"
+                onClick={() => setImportOpen(true)}
+                title="Групповая загрузка товаров, моделей и фото из ZIP"
+              >
+                Импорт ZIP
+              </button>
+              <button
+                className="button button-small"
+                type="button"
+                onClick={() => {
+                  setSelectedProduct(null);
+                  setCreating(true);
+                  setError('');
+                }}
+              >
+                + Товар
+              </button>
+            </div>
           </div>
 
           <input
@@ -253,6 +265,21 @@ export default function AdminCatalogPage() {
               onRefresh={refreshDictionary}
               onClose={() => setDictionaryOpen(false)}
               onError={setError}
+            />
+          </div>
+        </div>
+      )}
+
+      {importOpen && (
+        <div className="modal-backdrop" onClick={() => setImportOpen(false)}>
+          <div className="modal-card" onClick={(event) => event.stopPropagation()}>
+            <CatalogImportModal
+              onClose={() => setImportOpen(false)}
+              onError={setError}
+              onDone={() => {
+                setNotice('Импорт завершён. Обновляем список…');
+                Promise.all([loadSections(), loadProducts()]).then(() => setNotice(''));
+              }}
             />
           </div>
         </div>

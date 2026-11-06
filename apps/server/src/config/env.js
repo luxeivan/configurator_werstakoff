@@ -32,6 +32,8 @@ export const env = {
   uploadDir: process.env.UPLOAD_DIR || path.join(rootDir, 'uploads'),
   maxModelMb: Number(process.env.MAX_MODEL_MB || 500),
   maxImageMb: Number(process.env.MAX_IMAGE_MB || 8),
+  // Максимальный размер ZIP-архива группового импорта каталога.
+  maxImportZipMb: Number(process.env.MAX_IMPORT_ZIP_MB || 1000),
   // Файлы крупнее этого лимита автоматически оптимизируются сразу после загрузки.
   modelAutoOptimizeMb: Number(process.env.MODEL_AUTO_OPTIMIZE_MB || 15),
   maxOrderItems: Number(process.env.MAX_ORDER_ITEMS || 100),

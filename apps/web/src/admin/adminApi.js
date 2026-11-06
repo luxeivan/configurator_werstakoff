@@ -79,6 +79,15 @@ export const adminApi = {
     return upload(`/api/admin/products/${id}/model`, formData);
   },
 
+  importZip: (file, { manifest, createParams } = {}) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    if (manifest) formData.append('manifest', manifest);
+    if (createParams) formData.append('createParams', '1');
+    return upload('/api/admin/import', formData);
+  },
+  getImportStatus: (id) => apiFetch(`/api/admin/import/${id}`),
+
   listProperties: () => apiFetch('/api/admin/properties'),
   createProperty: (body) => apiFetch('/api/admin/properties', { method: 'POST', body }),
   updateProperty: (id, body) => apiFetch(`/api/admin/properties/${id}`, { method: 'PATCH', body }),
