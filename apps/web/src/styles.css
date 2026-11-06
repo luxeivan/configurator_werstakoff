@@ -1293,7 +1293,6 @@ input[type="color"] { padding: 2px; height: 36px; }
 .tree-row.active {
   background: var(--brand-soft);
   border-left: 0;
-  box-shadow: inset 3px 0 0 var(--brand);
 }
 .tree-name span { font-size: 12px; }
 .tree-name small {
@@ -1428,7 +1427,6 @@ input[type="color"] { padding: 2px; height: 36px; }
 .inspector-item.selected { border-color: var(--brand); }
 .inspector-item.expanded {
   border-color: var(--brand);
-  box-shadow: inset 3px 0 0 var(--brand);
 }
 .inspector-item-head { padding: 9px; }
 .inspector-item-head:hover { background: var(--bg); }
@@ -1480,7 +1478,7 @@ input[type="color"] { padding: 2px; height: 36px; }
 /* ---------- Админка ---------- */
 .admin-catalog-page, .admin-properties-page { gap: 10px; }
 .admin-catalog { gap: 10px; }
-.tree-row.active { background: var(--brand-soft); box-shadow: inset 3px 0 0 var(--brand); }
+.tree-row.active { background: var(--brand-soft); }
 .tree-all { font-family: var(--font-body); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; }
 .tree-all.active { color: var(--brand); }
 .tree-actions button { border-radius: 6px; }
@@ -1495,7 +1493,6 @@ input[type="color"] { padding: 2px; height: 36px; }
 .product-row.active {
   border-color: var(--brand);
   background: var(--brand-soft);
-  box-shadow: inset 3px 0 0 var(--brand);
 }
 .product-row-main strong { font-size: 12px; color: var(--ink); }
 .product-row-main small, .product-row-side small { font-family: var(--font-body); font-size: 10px; }
