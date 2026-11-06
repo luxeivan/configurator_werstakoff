@@ -84,8 +84,28 @@ export default function CatalogImportModal({ onClose, onDone, onError }) {
       <form onSubmit={handleSubmit}>
         <p className="muted">
           Архив с манифестом <code>manifest.csv</code> / <code>manifest.json</code> и папками моделей и фото. Совместим
-          с форматом «models.zip + export.json». Подробности — в <code>docs/import.md</code>.
+          с форматом «models.zip + export.json».
         </p>
+
+        <div className="import-resources">
+          <span className="import-resources-title">Шаблоны и инструкция</span>
+          <div className="import-resources-links">
+            <a className="button button-ghost button-small" href="/templates/import-instrukcija.pdf" download="import-instrukcija.pdf">
+              PDF · инструкция
+            </a>
+            <a className="button button-ghost button-small" href="/templates/import-manifest.csv" download="import-manifest.csv">
+              CSV · шаблон
+            </a>
+            <a className="button button-ghost button-small" href="/templates/import-manifest.json" download="import-manifest.json">
+              JSON · шаблон
+            </a>
+          </div>
+          <p className="muted small">
+            Да, в ZIP-архив можно положить манифест <b>или</b> в CSV, <b>или</b> в JSON.
+            Товары с одинаковым <code>sku</code> обновляются, без <code>sku</code> — создаются заново.
+          </p>
+        </div>
+
         <label className="upload-field">
           <input
             ref={fileRef}
@@ -160,6 +180,10 @@ export default function CatalogImportModal({ onClose, onDone, onError }) {
         .import-modal .progress-fill { height: 100%; background: linear-gradient(90deg, var(--brand, #0078ee), #3bdcff); border-radius: 6px; transition: width .4s ease; }
         .import-modal .import-errors { max-height: 220px; overflow: auto; font-size: 13px; }
         .import-modal .import-errors ul { margin: 8px 0 0; padding-left: 18px; }
+        .import-resources { display: grid; gap: 8px; }
+        .import-resources-title { font-size: 12px; font-weight: 700; color: var(--muted, #696973); }
+        .import-resources-links { display: flex; flex-wrap: wrap; gap: 8px; }
+        .import-resources .button { text-decoration: none; }
       `}</style>
     </div>
   );

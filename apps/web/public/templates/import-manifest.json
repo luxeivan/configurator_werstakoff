@@ -1,0 +1,33 @@
+{
+  "products": [
+    {
+      "sku": "STOL-1",
+      "section": "Верстаки/Механик",
+      "name": "Стол верстачный 2000",
+      "price": 49900,
+      "widthCm": 200,
+      "depthCm": 80,
+      "heightCm": 74.4,
+      "weightKg": 95,
+      "shortDescription": "Усиленная рама",
+      "description": "Столешница 30 мм, нагрузка до 300 кг",
+      "isActive": true,
+      "model": "models/stol-1.glb",
+      "images": "images/stol-1.jpg",
+      "color": "RAL 7016;RAL 9003",
+      "series": "Mechanic",
+      "load": 300,
+      "garant": "5 лет"
+    },
+    {
+      "sku": "B-100",
+      "section": "Верстаки",
+      "name": "Верстак 1000",
+      "price": 25900,
+      "widthCm": 100,
+      "depthCm": 60,
+      "heightCm": 85,
+      "model": "models/b-100.glb"
+    }
+  ]
+}

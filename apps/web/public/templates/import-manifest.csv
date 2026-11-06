@@ -1,0 +1,3 @@
+﻿sku,section,name,price,width_cm,depth_cm,height_cm,weight_kg,short_description,description,is_active,model,images,color,series,load,garant
+STOL-1,Верстаки/Механик,Стол верстачный 2000,49900,200,80,74.4,95,"Усиленная рама","Столешница 30 мм, нагрузка до 300 кг",да,models/stol-1.glb,images/stol-1.jpg,RAL 7016;RAL 9003,Mechanic,300,5 лет
+B-100,Верстаки,Верстак 1000,25900,100,60,85,,,,да,models/b-100.glb,,,,,
