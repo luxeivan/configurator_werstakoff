@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { adminApi } from './adminApi.js';
+import Icon from '../components/Icon.jsx';
 
 const TYPES = [
   ['string', 'Строка'],
@@ -201,7 +202,7 @@ export default function PropertyDictionary({ properties, onRefresh, onClose, onE
                     {item.hex && <span className="color-dot" style={{ background: item.hex }} />}
                     {item.label}
                     <button type="button" title="Удалить параметр" onClick={() => removeParam(property, item)}>
-                      ×
+                      <Icon name="close" size={11} />
                     </button>
                   </span>
                 ))}

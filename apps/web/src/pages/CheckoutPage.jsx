@@ -7,6 +7,7 @@ import { usePlannerStore } from '../planner/usePlannerStore.js';
 import Plan2D from '../planner/Plan2D.jsx';
 const Scene3D = lazy(() => import('../planner/Scene3D.jsx'));
 import { renderPlanToCanvas } from '../planner/renderPlan.js';
+import Icon from '../components/Icon.jsx';
 
 const CAPTURE_KINDS = [
   ['plan2d', 'План 2D'],
@@ -212,7 +213,7 @@ export default function CheckoutPage() {
           <h1>Проверьте заказ</h1>
           <p className="muted">Снимки плана и 3D-видов будут приложены к PDF. Проверьте контакты.</p>
         </div>
-        <Link className="button button-ghost button-small" to="/">← Вернуться в планировщик</Link>
+        <Link className="button button-ghost button-small" to="/"><Icon name="arrow-left" size={13} /> Вернуться в планировщик</Link>
       </div>
 
       {error && <div className="alert alert-error">{error}</div>}

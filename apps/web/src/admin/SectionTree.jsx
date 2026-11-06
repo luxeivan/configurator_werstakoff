@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { adminApi } from './adminApi.js';
+import Icon from '../components/Icon.jsx';
 
 function flatten(nodes, depth = 0) {
   return nodes.flatMap((node) => [
@@ -104,13 +105,13 @@ export default function SectionTree({ sections, selectedId, onSelect, onRefresh,
             </button>
             <span className="tree-actions">
               <button type="button" title="Добавить подраздел" onClick={() => startCreate(node.id)}>
-                +
+                <Icon name="plus" size={13} />
               </button>
               <button type="button" title="Изменить" onClick={() => startEdit(node)}>
-                ✎
+                <Icon name="edit" size={13} />
               </button>
               <button type="button" title="Удалить" onClick={() => remove(node)}>
-                ×
+                <Icon name="trash" size={13} />
               </button>
             </span>
           </div>

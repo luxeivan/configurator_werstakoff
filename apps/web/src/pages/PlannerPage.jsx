@@ -26,6 +26,7 @@ const clampPasses = (value) => Math.min(16, Math.max(2, Number(value) || 6));
 const clampScale = (value) => Math.min(1, Math.max(0.4, Number(value) || 0.65));
 const clampSoft = (value) => Math.min(2, Math.max(0.5, Number(value) || 1));
 const clampPost = (value) => Math.min(2, Math.max(0, Number(value) || 1));
+import Icon from '../components/Icon.jsx';
 import Plan2D from '../planner/Plan2D.jsx';
 const Scene3D = lazy(() => import('../planner/Scene3D.jsx'));
 import { usePlannerStore } from '../planner/usePlannerStore.js';
@@ -730,7 +731,7 @@ export default function PlannerPage() {
                   aria-label="Закрыть список товаров"
                   onClick={closeSection}
                 >
-                  ×
+                  <Icon name="close" size={16} />
                 </button>
               </div>
               {activeSection.description && (
@@ -758,7 +759,7 @@ export default function PlannerPage() {
                       {product.imageUrl ? (
                         <img src={product.imageUrl} alt={product.name} />
                       ) : (
-                        <span>Fe</span>
+                        <Icon name="box" size={20} />
                       )}
                     </div>
                     <div className="catalog-card-body">
@@ -775,7 +776,11 @@ export default function PlannerPage() {
                           disabled={addingId === product.publicId}
                           onClick={() => handleAdd(product)}
                         >
-                          {addingId === product.publicId ? '…' : '+'}
+                          {addingId === product.publicId ? (
+                            <Icon name="refresh" size={14} />
+                          ) : (
+                            <Icon name="plus" size={14} />
+                          )}
                         </button>
                       </div>
                     </div>
@@ -860,10 +865,10 @@ export default function PlannerPage() {
           <div className="plan-bar">
             <div className="actions">
               <button className="button button-ghost button-small" type="button" onClick={undo}>
-                ↶ Undo
+                <Icon name="undo" size={13} /> Undo
               </button>
               <button className="button button-ghost button-small" type="button" onClick={redo}>
-                ↷ Redo
+                <Icon name="redo" size={13} /> Redo
               </button>
               <button
                 className="button button-ghost button-small"
@@ -879,21 +884,21 @@ export default function PlannerPage() {
                   setNotice(clipboardRef.current.length ? 'Скопировано' : 'Ничего не выбрано');
                 }}
               >
-                Копировать
+                <Icon name="copy" size={13} /> Копировать
               </button>
               <button
                 className="button button-ghost button-small"
                 type="button"
                 onClick={() => pasteItems(clipboardRef.current)}
               >
-                Вставить
+                <Icon name="paste" size={13} /> Вставить
               </button>
               <button
                 className="button button-ghost button-small"
                 type="button"
                 onClick={() => sceneRef.current?.fitAll()}
               >
-                Вписать 3D
+                <Icon name="maximize" size={13} /> Вписать 3D
               </button>
               <button
                 className="button button-ghost button-small"
@@ -916,7 +921,7 @@ export default function PlannerPage() {
                 onClick={handleRender}
                 title="Рендер с мягкими тенями и рассеянным светом — попадёт в PDF заказа"
               >
-                {rendering ? `Рендер… ${renderPct}%` : 'Рендер 3D'}
+                <Icon name="camera" size={13} /> {rendering ? `Рендер… ${renderPct}%` : 'Рендер 3D'}
               </button>
               <div className="render-settings-wrap" ref={renderSettingsRef}>
                 <button
@@ -931,7 +936,7 @@ export default function PlannerPage() {
                   }
                   onClick={openRenderSettings}
                 >
-                  ⚙
+                  <Icon name="settings" size={14} />
                 </button>
                 {renderSettingsOpen && (
                   <div
@@ -955,7 +960,7 @@ export default function PlannerPage() {
                           aria-label="Закрыть настройки рендера"
                           onClick={() => setRenderSettingsOpen(false)}
                         >
-                          ×
+                          <Icon name="close" size={16} />
                         </button>
                       </div>
                     <div className="preset-chips">
@@ -1045,6 +1050,7 @@ export default function PlannerPage() {
                 type="button"
                 onClick={() => setShowWalls((value) => !value)}
               >
+                <Icon name={showWalls ? 'eye-off' : 'eye'} size={13} />
                 {showWalls ? 'Скрыть стены' : 'Показать стены'}
               </button>
             </div>
@@ -1054,11 +1060,11 @@ export default function PlannerPage() {
           </div>
           <div className={`warnings ${warningList.length ? 'has-warnings' : 'ok'}`}>
             {warningList.length === 0 ? (
-              <span>✓ Конфликтов нет</span>
+              <span className="inline-flag"><Icon name="check" size={13} /> Конфликтов нет</span>
             ) : (
               warningList.slice(0, 6).map((warning) => (
                 <button key={warning.id} type="button" onClick={() => select(warning.id)}>
-                  ⚠ {warning.text}
+                  <Icon name="alert" size={12} /> {warning.text}
                 </button>
               ))
             )}
@@ -1101,14 +1107,14 @@ export default function PlannerPage() {
                         else select(item.id, event.shiftKey);
                       }}
                     >
-                      <span className="inspector-item-chevron">{expanded ? '▾' : '▸'}</span>
+                      <span className="inspector-item-chevron"><Icon name={expanded ? 'chevron-down' : 'chevron-right'} size={12} /></span>
                       <span className="inspector-item-title">
                         <strong>{item.product?.name || 'Предмет'}</strong>
                         <small>
                           {formatCm(item.product?.widthCm)} × {formatCm(item.product?.depthCm)} ×{' '}
                           {formatCm(item.product?.heightCm)}
-                          {item.locked ? ' · 🔒' : ''}
-                          {conflict ? ' · ⚠ конфликт' : ''}
+                          {item.locked ? <span className="inline-flag"><Icon name="lock" size={10} /></span> : ''}
+                          {conflict ? <span className="inline-flag"><Icon name="alert" size={10} /> конфликт</span> : ''}
                         </small>
                       </span>
                       <span className="inspector-item-price">
@@ -1258,6 +1264,7 @@ export default function PlannerPage() {
                             type="button"
                             onClick={() => toggleLock(selectedItem.id)}
                           >
+                            <Icon name={selectedItem.locked ? 'unlock' : 'lock'} size={13} />
                             {selectedItem.locked ? 'Разблокировать' : 'Заблокировать'}
                           </button>
                           <button
@@ -1265,14 +1272,14 @@ export default function PlannerPage() {
                             type="button"
                             onClick={duplicateSelected}
                           >
-                            Дублировать
+                            <Icon name="duplicate" size={13} /> Дублировать
                           </button>
                           <button
                             className="button button-ghost button-small"
                             type="button"
                             onClick={pushSelectedToWall}
                           >
-                            К стене
+                            <Icon name="move-to-wall" size={13} /> К стене
                           </button>
                           {selectedIds.length > 1 && (
                             <button

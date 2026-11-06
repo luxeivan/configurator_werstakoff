@@ -10,11 +10,12 @@ import AdminCatalogPage from './pages/AdminCatalogPage.jsx';
 import AdminOrdersPage from './pages/AdminOrdersPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
+import brandLogo from './assets/brand/logo.svg';
 
+// Вход в админку — только по прямому адресу /admin (без ссылок в UI для обычных пользователей).
 const nav = [
   { to: '/', label: 'Планировщик', end: true },
   { to: '/orders', label: 'Мои заказы' },
-  { to: '/admin', label: 'Админка' },
 ];
 
 const ROLE_LABELS = {
@@ -36,10 +37,10 @@ export default function App() {
     <div className="shell">
       <header className="topbar">
         <NavLink to="/" className="brand">
-          <span className="brand-mark">Fe</span>
+          <img className="brand-mark-img" src={brandLogo} alt="" width="38" height="38" />
           <span>
-            <strong>МеталлПлан</strong>
-            <small>3D-планировщик</small>
+            <strong>Верстакофф</strong>
+            <small>3D-планировщик мебели</small>
           </span>
         </NavLink>
         <nav className="nav">
@@ -67,9 +68,7 @@ export default function App() {
             </button>
           </div>
         ) : (
-          <NavLink to="/login" className="button button-ghost">
-            Войти
-          </NavLink>
+          <span />
         )}
       </header>
       <main className="main">

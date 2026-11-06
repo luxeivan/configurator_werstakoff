@@ -5,6 +5,7 @@ import { useAuth } from '../auth/AuthContext.jsx';
 import { apiFetch } from '../lib/api.js';
 import AdminShell from '../admin/AdminShell.jsx';
 import { adminApi } from '../admin/adminApi.js';
+import Icon from '../components/Icon.jsx';
 
 export default function AdminOrdersPage() {
   const { user, loading, isManager } = useAuth();
@@ -298,7 +299,7 @@ export default function AdminOrdersPage() {
             disabled={busy || page <= 1}
             onClick={() => setPage((value) => Math.max(1, value - 1))}
           >
-            ← Назад
+            <Icon name="arrow-left" size={13} /> Назад
           </button>
           <span className="muted small">
             Стр. {meta.page} · всего {meta.total}
@@ -309,7 +310,7 @@ export default function AdminOrdersPage() {
             disabled={busy || page * (meta.limit || 20) >= meta.total}
             onClick={() => setPage((value) => value + 1)}
           >
-            Вперёд →
+            Вперёд <Icon name="arrow-right" size={13} />
           </button>
         </div>
       </div>

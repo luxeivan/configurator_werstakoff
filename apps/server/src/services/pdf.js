@@ -171,7 +171,7 @@ export async function generateOrderPdf(publicId) {
       columns: [
         {
           stack: [
-            { text: company.name || 'МеталлПлан', bold: true, fontSize: 11 },
+            { text: company.name || 'Верстакофф', bold: true, fontSize: 11 },
             { text: [company.phone, company.email, company.website].filter(Boolean).join(' · '), style: 'muted' },
           ],
         },
