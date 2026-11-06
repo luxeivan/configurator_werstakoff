@@ -152,7 +152,7 @@ export default function CatalogImportModal({ onClose, onDone, onError }) {
       </form>
 
       <style>{`
-        .import-modal { display: flex; flex-direction: column; gap: 14px; }
+        .import-modal { display: flex; flex-direction: column; gap: 14px; padding: 18px 20px 20px; }
         .import-modal .upload-field { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
         .import-modal .upload-field input { max-width: 320px; }
         .import-modal .check-row { display: flex; gap: 8px; align-items: center; }

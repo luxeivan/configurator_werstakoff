@@ -1566,7 +1566,13 @@ input[type="color"] { padding: 2px; height: 36px; }
 
 /* ---------- Модальные окна и сообщения ---------- */
 .modal-backdrop { background: rgba(18, 18, 18, 0.5); backdrop-filter: blur(3px); }
-.modal-card { border-radius: 14px; border-top: 2px solid var(--brand); }
+.modal-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--brand);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
 .alert { border-radius: 10px; font-size: 12px; }
 .alert-error { background: #fdecee; color: #b0183a; border-color: #f6c6d0; }
 .alert-ok { background: #e7f5ec; color: #146c3e; border-color: #bfe3ca; }
